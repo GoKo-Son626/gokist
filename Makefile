@@ -12,6 +12,7 @@ kernel:
 	riscv64-unknown-elf-gcc $(CFLAGS) \
 	kernel/entry.S \
 	kernel/start.c \
+	kernel/uart.c \
 	-T kernel/kernel.ld \
 	-o kernel.elf \
 
@@ -20,7 +21,7 @@ qemu: kernel
 	-bios none \
 	-kernel kernel.elf \
 	-m 128 \
-	-smp 4 \
+	-smp 1 \
 	-nographic \
 
 clean:
