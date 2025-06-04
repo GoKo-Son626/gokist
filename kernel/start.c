@@ -1,9 +1,13 @@
 char stack0[4096*8];
 
+void uartinit();
 void uartputc_temp(char c);
+void uartputs_temp(char* s);
 
 void start() {
-	uartputc_temp('w');
+	uartinit();
+	uartputs_temp("string\n");
+
 	while (1)
 		;
 }
