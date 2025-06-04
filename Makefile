@@ -13,6 +13,7 @@ kernel:
 	kernel/entry.S \
 	kernel/start.c \
 	kernel/uart.c \
+	kernel/main.c \
 	-T kernel/kernel.ld \
 	-o kernel.elf \
 
