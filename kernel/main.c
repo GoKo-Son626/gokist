@@ -4,7 +4,7 @@ void uartputs_temp(char* s);
 
 void main() {
 	uartinit();
-	uartputs_temp("string\n");
+	uartputs_temp("Hello world!\n");
 
 	while (1)
 		;
