@@ -1,6 +1,6 @@
 #ifndef __RISCV_H__
 #define __RISCV_H__
-
+// twice
 #ifndef __ASSEMBLER__
 
 // which hart (core) is this?

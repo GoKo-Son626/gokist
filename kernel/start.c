@@ -2,7 +2,6 @@
 #include "riscv.h"
 
 void main();
-
 char stack0[4096*8];
 
 void start()
@@ -20,8 +19,8 @@ void start()
 	w_satp(0);
 
 	// delegate all interrupts and exceptions to supervisor mode.
-	w_medeleg(0xffff);
-	w_mideleg(0xffff);
+	w_medeleg(0xffff);	// interrupts
+	w_mideleg(0xffff);	// exceptions
 	w_sie(r_sie() | SIE_SEIE | SIE_STIE | SIE_SSIE);	//enable interrupts
 
 	// configure Physical Memory Protection to give supervisor mode
