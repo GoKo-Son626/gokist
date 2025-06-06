@@ -62,6 +62,8 @@ kernel:
 		kernel/start.c \
 		kernel/uart.c \
 		kernel/main.c \
+		kernel/kernelvec.S \
+		kernel/trap.c \
 		-T kernel/kernel.ld \
 		-o kernel.elf
 # riscv64-unknown-elf-gcc: 调用RISC-V 64位交叉编译器。

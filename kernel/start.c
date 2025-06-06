@@ -1,8 +1,13 @@
+#include "memlayout.h"
+#include "param.h"
 #include "types.h"
 #include "riscv.h"
+#include "defs.h"
 
 void main();
 char stack0[4096*8];
+void timerinit();
+uint64 timer_scratch[NCPU][5];
 
 void start()
 {
@@ -29,7 +34,7 @@ void start()
 	w_pmpcfg0(0xf);
 
 	// ask for clock interrupts
-	// timerinit();
+	timerinit();
 
 	// keep each CPU's hardid in its tp register.
 	int id = r_mhartid();
@@ -37,4 +42,30 @@ void start()
 
 	// switch to supervisor mode and jump to main().
 	asm volatile("mret");
+}
+
+void timerinit()
+{
+	int id = r_mhartid();
+	int interval = 1000000*10*2;
+
+	*(uint64)CLINT_MTIMECMP(id) = *(uint64)CLINT_MTIME + interval;
+
+	// prepare information in scratch[] for timervec.
+	// scratch[0..2] : space for timervec to save registers.
+	// scratch[3] : address of CLINT MTIMECMP register.
+	// scratch[4] : desired interval (in cycles) between timer interrupts.
+	uint64 *scratch = &timer_scratch[id][0];
+	scratch[3] = CLINT_MTIMECMP(id);
+	scratch[4] = interval;
+	w_mscratch((uint64)scratch);
+
+	// set the machine-mode trap handler.
+	w_mtvec((uint64)timervec);
+
+	// enable machine-mode interrupts.
+	w_mstatus(r_mstatus() | MSTATUS_MIE);
+
+	// enable machine-mode timer interrupts.
+	w_mie(r_mie() | MIE_MTIE);
 }
