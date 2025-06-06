@@ -80,10 +80,13 @@ qemu: kernel
 	$(QEMU)
 # $(QEMU): 展开并执行上面定义的QEMU变量中的所有命令和参数，启动模拟器。
 
+qemu-gdb: kernel
+	$(QEMU) -s -S
+
 gdb: kernel
 # gdb: 定义了名为 'gdb' 的目标。
 # kernel: 'gdb' 目标依赖于 'kernel' 目标，确保在调试前内核已编译。
-	$(QEMU) -s -S &
+	# $(QEMU) -s -S &
 # $(QEMU): 展开并执行QEMU变量中的基础命令和参数。
 # -s: 启动GDB服务器，在默认的1234端口等待GDB客户端连接。
 # -S: 在启动时冻结CPU，等待GDB连接并发出“continue”命令。
