@@ -82,15 +82,14 @@ qemu: kernel
 
 qemu-gdb: kernel
 	$(QEMU) -s -S
-
-gdb: kernel
-# gdb: 定义了名为 'gdb' 的目标。
-# kernel: 'gdb' 目标依赖于 'kernel' 目标，确保在调试前内核已编译。
-	# $(QEMU) -s -S &
 # $(QEMU): 展开并执行QEMU变量中的基础命令和参数。
 # -s: 启动GDB服务器，在默认的1234端口等待GDB客户端连接。
 # -S: 在启动时冻结CPU，等待GDB连接并发出“continue”命令。
 # &: 将QEMU命令放入后台运行，这样make命令可以继续执行GDB命令。
+
+gdb: kernel
+# gdb: 定义了名为 'gdb' 的目标。
+# kernel: 'gdb' 目标依赖于 'kernel' 目标，确保在调试前内核已编译。
 	gdb-multiarch -q -x gdbinit
 # gdb-multiarch: 启动GDB调试器，支持多架构调试（用于RISC-V）。
 # -q: 静默模式，不打印GDB的启动信息。
