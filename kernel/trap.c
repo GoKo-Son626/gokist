@@ -8,7 +8,7 @@
 
 // set stvec
 void
-trapinithard(void)
+trapinithart(void)
 {
   w_stvec((uint64)kernelvec);
 }
@@ -36,7 +36,7 @@ int devintr()
 {
 	uint64 scause = r_scause();
 
-	if(scause == 0x8000000000000000L) {
+	if(scause == 0x8000000000000001L) {
 		w_sip(r_sip() & ~2);
 		return 2;
 	}

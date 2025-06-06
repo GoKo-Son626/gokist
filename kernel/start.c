@@ -49,7 +49,7 @@ void timerinit()
 	int id = r_mhartid();
 	int interval = 1000000*10*2;
 
-	*(uint64)CLINT_MTIMECMP(id) = *(uint64)CLINT_MTIME + interval;
+	*(uint64*)CLINT_MTIMECMP(id) = *(uint64*)CLINT_MTIME + interval;
 
 	// prepare information in scratch[] for timervec.
 	// scratch[0..2] : space for timervec to save registers.
