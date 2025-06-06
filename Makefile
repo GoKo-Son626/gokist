@@ -43,7 +43,7 @@ QEMU = qemu-system-riscv64 -machine virt \
        -bios none \
        -kernel kernel.elf \
        -m 128 \
-       -smp 4 \
+       -smp 1 \
        -nographic
 # QEMU: 定义了QEMU模拟器的基础命令和常用参数。
 # qemu-system-riscv64: 调用QEMU模拟器，指定模拟RISC-V 64位系统。
