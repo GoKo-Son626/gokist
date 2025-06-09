@@ -1,3 +1,7 @@
+// 实现了 RISC-V 架构下 xv6 的 UART 串口通信驱动
+// 它提供了向串口发送字符和从串口接收字符的功能
+// 是内核进行早期调试输出和与用户交互的关键接口
+
 #include "memlayout.h"
 
 #define Reg(reg) ((volatile unsigned char*)(UART0 + reg))

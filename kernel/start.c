@@ -1,3 +1,8 @@
+// 在某些 xv6-riscv 版本中，这个文件负责在 entry.S 之后
+// 初步的时钟初始化、
+// 设置进行从机器模式到监督模式的过渡
+// 为 main.c 中的完整内核初始化做准备。
+
 #include "memlayout.h"
 #include "param.h"
 #include "types.h"

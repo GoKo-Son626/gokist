@@ -1,3 +1,8 @@
+// 实现了 xv6 内核统一的中断和异常处理机制
+// 它负责捕获所有来自 CPU 的陷阱事件
+// （包括系统调用、时钟中断和硬件异常）
+// 并调度到相应的处理函数。
+
 #include "types.h"
 #include "riscv.h"
 #include "defs.h"

@@ -1,4 +1,7 @@
-        #
+// 这段代码定义了两个主要的陷阱向量（入口点）：
+// - kernelvec: 处理监督模式（Supervisor Mode）下发生的所有中断和异常。
+// - timervec: 专门处理机器模式（Machine Mode）下的定时器中断。
+
         # interrupts and exceptions while in supervisor
         # mode come here.
         #
