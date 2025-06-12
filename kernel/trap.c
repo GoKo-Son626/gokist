@@ -24,8 +24,8 @@ void
 kerneltrap()
 {
 	int which_dev = 0;
-	which_dev = devintr();
 
+	which_dev = devintr();
 	if (which_dev == 0) {
 		uartputs_temp("panic: interrupts not handle\n");
 		while (1) {
@@ -41,8 +41,15 @@ int devintr()
 {
 	uint64 scause = r_scause();
 
-	if(scause == 0x8000000000000001L) {
-		w_sip(r_sip() & ~2);
+	// 旧版本
+	// 1...1 64位 
+	// if(scause == 0x8000000000000001L) {
+		// w_sip(r_sip() & ~2);
+	// 
+	// 新版本
+	// 1..101 64位
+	if(scause == 0x8000000000000005L) {
+		w_stimecmp(r_time() + 1000000 * 10 * 2);
 		return 2;
 	}
 

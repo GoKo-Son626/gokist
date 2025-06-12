@@ -21,7 +21,8 @@ set architecture riscv:rv64
 # set architecture riscv:rv64: 告诉GDB当前调试的目标架构是RISC-V 64位。
 # 这确保GDB能够正确解析指令、寄存器和内存布局。
 
-symbol-file kernel.elf
+symbol-file kernel/kernel
+# symbol-file kernel.elf
 # symbol-file kernel.elf: 加载 'kernel.elf' 文件的符号表和调试信息。
 # 这使得GDB可以将内存地址映射到源代码行、函数名和变量名，从而进行源代码级别的调试。
 
