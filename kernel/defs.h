@@ -7,6 +7,9 @@
 
 #include "types.h"
 
+struct cpu;
+struct spinlock;
+
 // uart.c
 void uartinit();
 void uartputc_temp(char c);
@@ -41,6 +44,18 @@ int strlen(const char *s);
 // printf.c
 int printf(char *fmt, ...);
 void panic(char *s);
+
+// proc.c
+int cpuid();
+struct cpu* mycpu();
+
+// spinlock.c
+void initlock(struct spinlock* lk,char* name);
+void acquire(struct spinlock* lk);
+void release(struct spinlock* lk);
+int holding(struct spinlock* lk);
+void push_off();
+void pop_off(void);
 
 
 #endif // !__DEFS_H__

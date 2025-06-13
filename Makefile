@@ -27,7 +27,9 @@ OBJS= \
       $(K)/trap.o \
       $(K)/kalloc.o \
       $(K)/string.o \
-      $(K)/print.o
+      $(K)/print.o \
+      $(K)/proc.o \
+      $(K)/spinlock.o
 
 TOOLPREFIX = riscv64-unknown-elf-
 CC = $(TOOLPREFIX)gcc

@@ -8,12 +8,12 @@
 
 void main() {
 	uartinit();
-	uartputs_temp("Hello world! \n");
+	uartputs_temp("Hello world!******************************** \n");
 	trapinithart();
-	uartputs_temp("trapinithart() \n");
+	uartputs_temp("trapinithart()******************************** \n");
 	kinit();
 	kmemtest();
-	uartputs_temp("kinit() \n");
+	printf("kinit()******************************** \n");
 	// enable interrupts and exceptions in S mode
 	w_sstatus(r_sstatus() | SSTATUS_SIE);
 
