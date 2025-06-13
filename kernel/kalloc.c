@@ -4,13 +4,21 @@
 #include "memlayout.h"
 #include "defs.h"
 
-
-// // kalloc.c
-// void kinit();
-// void freerange(void* pa_start,void* pa_end);
-// void kfree(void* pa);
-// void* kalloc();
-// void kmemtest();
+/* *
+ * 1page
+ * 1page
+ * 1page
+ * 1page
+ * 1page
+ * 1page
+ * 1page
+ *           -> end tag
+ * kernel
+ *           -> 0x80000000
+ * I/O
+ * devices
+ *           -> 0x0
+ * */
 
 extern char end[]; //kernel.ld中定义的地址，内核镜像的结束地址
 
@@ -102,19 +110,3 @@ void kmemtest()
         printf("p3=%p\n",p3);
     }
 }
-
-/* *
- * 1page
- * 1page
- * 1page
- * 1page
- * 1page
- * 1page
- * 1page
- *           -> end tag
- * kernel
- *           -> 0x80000000
- * I/O
- * devices
- *           -> 0x0
- * */
