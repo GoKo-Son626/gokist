@@ -14,6 +14,8 @@ struct spinlock;
 void uartinit();
 void uartputc_temp(char c);
 void uartputs_temp(char* s);
+int uartgetc();
+void uartintr();
 
 // kernelvec.S
 void kernelvec();
@@ -56,6 +58,19 @@ void release(struct spinlock* lk);
 int holding(struct spinlock* lk);
 void push_off();
 void pop_off(void);
+
+// plic.c
+void plicinit();
+void plicinithart();
+int plic_claim();
+void plic_complete(int irq);
+
+// vm.c
+void kvminit();
+void kvminithart();
+pagetable_t kvmmake();
+void kvmmap(pagetable_t kpgtbl,uint64 va,uint64 pa,uint64 sz,int perm);
+int mappages(pagetable_t pagetable,uint64 va,uint64 size,uint64 pa,int perm);
 
 
 #endif // !__DEFS_H__

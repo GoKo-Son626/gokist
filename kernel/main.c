@@ -9,11 +9,18 @@
 void main() {
 	uartinit();
 	uartputs_temp("Hello world!******************************** \n");
+
 	trapinithart();
-	uartputs_temp("trapinithart()******************************** \n");
+	uartputs_temp("trapinit()******************************** \n");
+
 	kinit();
 	kmemtest();
 	printf("kinit()******************************** \n");
+
+	kvminit();
+	kvminithart();
+	uartputs_temp("kvminit()********************************\n");
+
 	// enable interrupts and exceptions in S mode
 	w_sstatus(r_sstatus() | SSTATUS_SIE);
 

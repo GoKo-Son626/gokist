@@ -29,7 +29,9 @@ OBJS= \
       $(K)/string.o \
       $(K)/print.o \
       $(K)/proc.o \
-      $(K)/spinlock.o
+      $(K)/spinlock.o \
+      $(K)/vm.o \
+      # $(K)/plic.o
 
 TOOLPREFIX = riscv64-unknown-elf-
 CC = $(TOOLPREFIX)gcc
@@ -87,7 +89,7 @@ qemu-debug:
 	gdb-multiarch -q -x gdbinit
 
 clean:
-	rm -rf kernel.elf
+	rm -rf kernel/kernel
 	rm -rf kernel.d
 	rm -rf */*.d
 	rm -rf */*.o */*.asm */*.sym
