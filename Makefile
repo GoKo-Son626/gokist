@@ -27,7 +27,7 @@ OBJS= \
       $(K)/trap.o \
       $(K)/kalloc.o \
       $(K)/string.o \
-      $(K)/print.o \
+      $(K)/printf.o \
       $(K)/proc.o \
       $(K)/spinlock.o \
       $(K)/vm.o \
