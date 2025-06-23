@@ -6,12 +6,22 @@
 #include "riscv.h"
 #include "defs.h"
 
+const char *goko_full_logo =
+"\n"
+" _   _             _      _        _____	\n"
+"| | | |    ___    | |    | |     //     \\\\      \n"
+"| |_| |  // _ \\\\  | |    | |    ||	 ||	\n"
+"|  _  | || ___ // | |___ | |___ ||       ||	\n"
+"|_| |_|  \\\\____   |_____||_____| \\\\_____//	\n"
+"						\n";
+
 void main() {
 	uartinit();
-	uartputs_temp("Hello world!******************************** \n");
+	printf("%s", goko_full_logo);
+	printf("timerinit()******************************** \n");
 
 	trapinithart();
-	uartputs_temp("trapinit()******************************** \n");
+	printf("trapinit()******************************** \n");
 
 	kinit();
 	kmemtest();
@@ -19,7 +29,11 @@ void main() {
 
 	kvminit();
 	kvminithart();
-	uartputs_temp("kvminit()********************************\n");
+	printf("kvminit()********************************\n");
+
+	plicinit();
+	plicinithart();
+	printf("plicinit()********************************\n");
 
 	// enable interrupts and exceptions in S mode
 	w_sstatus(r_sstatus() | SSTATUS_SIE);

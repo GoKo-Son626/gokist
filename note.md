@@ -33,3 +33,5 @@ riscv: trap: exception and interrupt
     1:interrupt
     2:exception
 
+
+disk: 

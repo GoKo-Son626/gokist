@@ -31,7 +31,7 @@ OBJS= \
       $(K)/proc.o \
       $(K)/spinlock.o \
       $(K)/vm.o \
-      # $(K)/plic.o
+      $(K)/plic.o
 
 TOOLPREFIX = riscv64-unknown-elf-
 CC = $(TOOLPREFIX)gcc

@@ -51,8 +51,8 @@ pagetable_t kvmmake(void)
 	// // virtio mmio disk interface
 	// kvmmap(kpgtbl, VIRTIO0, VIRTIO0, PGSIZE, PTE_R | PTE_W);
 	//
-	// // PLIC
-	// kvmmap(kpgtbl, PLIC, PLIC, 0x4000000, PTE_R | PTE_W);
+	// PLIC
+	kvmmap(kpgtbl, PLIC, PLIC, 0x4000000, PTE_R | PTE_W);
 	//
 	// 内核文本区和数据区标记位是不同的
 	// map kernel text executable and read-only.

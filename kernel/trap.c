@@ -3,6 +3,7 @@
 // （包括系统调用、时钟中断和硬件异常）
 // 并调度到相应的处理函数。
 
+#include "memlayout.h"
 #include "types.h"
 #include "riscv.h"
 #include "defs.h"
@@ -35,6 +36,27 @@ kerneltrap()
 	if (which_dev == 2) {
 		uartputs_temp("timer interrupts ...\n");
 	}
+
+	if(which_dev == 1)
+	{
+		uartputs_temp("external interrupt...\n");
+		//#define PLIC_PENDING (PLIC + 0x1000)
+		//int t1 = *(uint32*)PLIC_PENDING;
+
+		int irq = plic_claim();
+		printf("external interrupt irq=%d\n",irq);
+		//printf("external interrupt t1=%d\n",t1);
+		//int t2 = *(uint32*)PLIC_PENDING;
+		//printf("external interrupt t2=%d\n",t2);
+		if(irq == UART0_IRQ)
+		{
+			printf("this is uart handler...\n");
+			uartintr();
+			printf("\n\n");
+		}
+		if(irq)
+			plic_complete(irq);
+	}
 }
 
 int devintr()
@@ -51,6 +73,12 @@ int devintr()
 	if(scause == 0x8000000000000005L) {
 		w_stimecmp(r_time() + 1000000 * 10 * 2);
 		return 2;
+	}
+
+	// 1... 9 64位 supervisor external
+	if(scause == 0x8000000000000009L)
+	{
+		return 1;
 	}
 
 	return 0;

@@ -5,6 +5,7 @@
 #include "memlayout.h"
 
 #define Reg(reg) ((volatile unsigned char*)(UART0 + reg))
+#define ReadReg(reg) (*(Reg(reg)))
 #define WriteReg(reg, v) (*(Reg(reg)) = (v))
 
 // the UART control registers.
@@ -45,6 +46,7 @@ void uartinit()
 	// reset and enable FIFOs.
 	WriteReg(FCR, FCR_FIFO_ENABLE | FCR_FIFO_CLEAR);
 	// enable transmit and receive interrupts.
+	WriteReg(IER, IER_RX_ENABLE);
 	// WriteReg(IER, IER_TX_ENABLE | IER_RX_ENABLE);
 
 	// initlock(&uart_tx_lock, "uart");
@@ -60,4 +62,24 @@ void uartputs_temp(char* s)
 	while (*s) {
 		uartputc_temp(*(s++));
 	}
+}
+
+// 获得串口中断时，RHR寄存器中的值
+int uartgetc()
+{
+    if(ReadReg(LSR) & 0x1)
+        return ReadReg(RHR);
+    else
+        return -1;
+}
+// 串口接收到数据时的中断处理函数
+void uartintr()
+{
+    while(1)
+    {
+        int c = uartgetc();
+        if(c == -1)
+            break;
+        uartputc_temp(c);
+    }
 }
