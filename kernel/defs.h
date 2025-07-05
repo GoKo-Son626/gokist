@@ -9,6 +9,7 @@
 
 struct cpu;
 struct spinlock;
+struct buf;
 
 // uart.c
 void uartinit();
@@ -72,5 +73,10 @@ pagetable_t kvmmake();
 void kvmmap(pagetable_t kpgtbl,uint64 va,uint64 pa,uint64 sz,int perm);
 int mappages(pagetable_t pagetable,uint64 va,uint64 size,uint64 pa,int perm);
 
+// virtio_disk.c
+void	virtio_disk_init(void);
+void	virtio_disk_rw(struct buf *, int);
+void	virtio_disk_intr(void);
+void	virtio_disk_test();
 
 #endif // !__DEFS_H__

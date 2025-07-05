@@ -31,7 +31,8 @@ OBJS= \
       $(K)/proc.o \
       $(K)/spinlock.o \
       $(K)/vm.o \
-      $(K)/plic.o
+      $(K)/plic.o \
+      $(K)/virtio_disk.o
 
 TOOLPREFIX = riscv64-unknown-elf-
 CC = $(TOOLPREFIX)gcc
@@ -72,20 +73,27 @@ QEMUOPTS = -machine virt \
 	-smp $(CPUS) \
 	-nographic
 
-qemu: $(K)/kernel
+QEMUOPTS += -global virtio-mmio.force-legacy=false \
+	    -drive file=fs.img,if=none,format=raw,id=x0 \
+	    -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+
+fs.img:
+	dd if=/dev/urandom of=fs.img bs=1M count=6
+
+qemu: $(K)/kernel fs.img
 	@echo "*** Build success ***"
 	$(QEMU) $(QEMUOPTS)
 
-gdb: $(K)/kernel
+gdb: $(K)/kernel fs.img
 	@echo "*** Build success ***"
 	$(QEMU) $(QEMUOPTS) -s -S & \
 		gdb-multiarch -q -x gdbinit
 
-qemu-gdb: $(K)/kernel
+qemu-gdb: $(K)/kernel fs.img
 	@echo "*** Build gdb success ***"
 	$(QEMU) $(QEMUOPTS) -s -S
 
-qemu-debug:
+qemu-debug: fs.img
 	gdb-multiarch -q -x gdbinit
 
 clean:
@@ -93,3 +101,4 @@ clean:
 	rm -rf kernel.d
 	rm -rf */*.d
 	rm -rf */*.o */*.asm */*.sym
+	rm -rf fs.img

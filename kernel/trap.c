@@ -54,6 +54,12 @@ kerneltrap()
 			uartintr();
 			printf("\n\n");
 		}
+		if(irq == VIRTIO0_IRQ)
+		{
+			printf("this is virtio handle\n");
+			virtio_disk_intr();
+			printf("\n\n");
+		}
 		if(irq)
 			plic_complete(irq);
 	}

@@ -15,6 +15,7 @@ void plic_complete(int irq);
 void plicinit()
 {
 	*(uint32*)(PLIC + UART0_IRQ*4) = 1;
+	*(uint32*)(PLIC + VIRTIO0_IRQ*4) = 1;
 }
 
 // 每个核心都要执行plic初始化
@@ -23,7 +24,7 @@ void plicinithart()
 	int hart = cpuid();
 
 	// 配置s模式响应中断
-	*(uint32*)PLIC_SENABLE(hart) = (1 << UART0_IRQ);
+	*(uint32*)PLIC_SENABLE(hart) = (1 << UART0_IRQ) | (1 << VIRTIO0_IRQ);
 
 	// 配置s模式下的阈值，阈值位0，表示可以响应任何设备中断
 	*(uint32*)PLIC_SPRIORITY(hart) = 0;
