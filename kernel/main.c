@@ -40,8 +40,6 @@ void main() {
 
 	// enable interrupts and exceptions in S mode
 	w_sstatus(r_sstatus() | SSTATUS_SIE);
-	virtio_disk_test();
-	printf("disk test END\n");
 
 
 	while (1)
