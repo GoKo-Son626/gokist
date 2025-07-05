@@ -26,12 +26,3 @@
 ├── note.md        // 包含项目相关笔记、文档。
 └── README.md      // 项目的介绍文件、项目描述、构建和运行指南。
 
-riscv: trap: exception and interrupt
-  exception(同步): syscall, /0, ISA...
-  interrupt(异步): out-devices, disk, UART...: CPU停下处理中断
-  diff: mcause的execption位决定
-    1:interrupt
-    2:exception
-
-
-disk: 
